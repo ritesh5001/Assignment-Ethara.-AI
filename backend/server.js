@@ -5,7 +5,24 @@ require('dotenv').config()
 
 const app = express()
 
-app.use(cors())
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:4000',
+  'https://assignment-ethara-ai-sigma.vercel.app',
+  'https://assignment-ethara-ai.render.com'
+]
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('CORS not allowed'))
+    }
+  },
+  credentials: true
+}))
+
 app.use(express.json())
 
 app.use('/api/auth', require('./routes/auth'))
