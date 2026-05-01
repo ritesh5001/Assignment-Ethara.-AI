@@ -1,0 +1,59 @@
+DEPLOYMENT GUIDE
+================
+
+PROBLEM FIXED:
+- Added vercel.json to frontend for client-side routing
+- Created .env.production for production API URL
+
+FRONTEND DEPLOYMENT (Vercel):
+1. Push code to GitHub
+2. Connect repo to Vercel
+3. Set environment variable in Vercel dashboard:
+   VITE_API_URL = https://your-backend-api-url.com/api
+4. Deploy - vercel.json will handle all routes ✓
+
+BACKEND DEPLOYMENT OPTIONS:
+
+Option A: Railway.app (Recommended - easy)
+1. Push backend code to GitHub (separate repo recommended)
+2. Connect to Railway
+3. Add environment variables:
+   - PORT=3000 (Railway assigns this)
+   - MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/taskmanager
+   - JWT_SECRET=your-secret-key
+4. Deploy
+
+Option B: Render.com
+1. Create account at render.com
+2. New > Web Service
+3. Connect GitHub repo
+4. Runtime: Node
+5. Build command: npm install
+6. Start command: npm run start (or node server.js)
+7. Add environment variables
+8. Deploy
+
+Option C: Heroku (deprecated but still works)
+1. Install Heroku CLI
+2. heroku create app-name
+3. heroku config:set variables
+4. git push heroku main
+
+MONGODB ATLAS (for production database):
+1. Go to mongodb.com/cloud/atlas
+2. Create free cluster
+3. Get connection string
+4. Use in MONGO_URI: mongodb+srv://user:pass@cluster.mongodb.net/taskmanager
+
+AFTER DEPLOYMENT:
+1. Update frontend .env.production with backend URL
+2. Redeploy frontend to Vercel
+3. Test login/register at https://your-frontend-url.vercel.app
+4. Make sure backend API responds at https://your-backend-url.com/api/auth/me
+
+TROUBLESHOOTING:
+- 404 on Vercel ✓ Fixed with vercel.json
+- CORS errors → Add to backend server.js:
+  app.use(cors({ origin: 'https://your-frontend-url.vercel.app' }))
+- API not found → Check VITE_API_URL in Vercel dashboard env vars
+- MongoDB connection → Use MongoDB Atlas connection string
