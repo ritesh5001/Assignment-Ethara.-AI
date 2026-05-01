@@ -74,7 +74,7 @@ function ProjectDetail() {
     setTaskError('')
     setTaskLoading(true)
     try {
-      const res = await axios.post('${API}/tasks', {
+      const res = await axios.post(`${API}/tasks`, {
         ...taskForm,
         project: id,
         assignedTo: taskForm.assignedTo || undefined,
