@@ -3,7 +3,13 @@ import axios from 'axios'
 
 const AuthContext = createContext()
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+// Get API URL from environment or use localhost fallback
+const API = import.meta.env.VITE_API_URL || 'http://localhost:4000/api'
+
+// Log to help with debugging
+if (!import.meta.env.VITE_API_URL && !import.meta.env.DEV) {
+  console.warn('⚠️ VITE_API_URL not set, using fallback: ' + API)
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
