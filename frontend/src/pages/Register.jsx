@@ -36,6 +36,15 @@ function Register() {
     <div className="auth-page">
       <div className="auth-card">
         <h2>Create Account</h2>
+        {loading && (
+          <div className="render-notice">
+            <span className="render-notice-icon">⏳</span>
+            <div>
+              <strong>Please wait a moment…</strong>
+              <p>This project runs on Render's free tier. The server may take up to 30–60 seconds to wake up on the first request. Thank you for your patience!</p>
+            </div>
+          </div>
+        )}
         {error && <div className="error-msg">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
